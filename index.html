@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<title>IRON LOG</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#121417;
+  --surface:#1B1E22;
+  --surface-2:#20242A;
+  --line:#2A2E33;
+  --chalk:#D7FF3F;
+  --chalk-dim:#9CC22B;
+  --ember:#FF6B4A;
+  --text:#F2F3EE;
+  --text-dim:#8A8F96;
+  --radius:14px;
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+}
+
+body{
+  background:
+    radial-gradient(circle at 15% 0%, rgba(215,255,63,0.05), transparent 40%),
+    var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,sans-serif;
+  min-height:100vh;
+  padding-bottom:30px;
+}
+
+h1,h2,h3,.display{
+  font-family:'Oswald',system-ui,sans-serif;
+  text-transform:uppercase;
+  letter-spacing:0.02em;
+  margin:0;
+}
+
+/* HEADER */
+
+header{
+  padding:22px 18px 16px;
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:linear-gradient(180deg,var(--bg) 70%,rgba(18,20,23,0.9));
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+
+.brand{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+}
+
+.brand .title{
+  font-size:28px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.brand .title .dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--chalk);
+  box-shadow:0 0 10px var(--chalk);
+}
+
+.brand .sub{
+  font-size:11px;
+  color:var(--text-dim);
+  letter-spacing:.14em;
+  font-family:'Oswald',sans-serif;
+}
+
+.phase-switch{
+  margin-top:16px;
+  display:flex;
+  gap:8px;
+}
+
+.phase-btn{
+  flex:1;
+  padding:10px 6px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:var(--surface);
+  color:var(--text-dim);
+  font-family:'Oswald',sans-serif;
+  font-size:13px;
+  cursor:pointer;
+}
+
+.phase-btn.active{
+  background:var(--chalk);
+  color:#12140A;
+  border-color:var(--chalk);
+}
+
+/* DAYS */
+
+.day-row{
+  display:flex;
+  gap:8px;
+  padding:16px 18px 4px;
+  overflow-x:auto;
+}
+
+.day-pill{
+  flex:0 0 auto;
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:var(--surface);
+  color:var(--text-dim);
+  font-size:13px;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+}
+
+.day-pill.active{
+  border-color:var(--chalk);
+  color:var(--chalk);
+  background:rgba(215,255,63,.08);
+}
+
+.day-pill.done{
+  border-color:var(--chalk-dim);
+}
+
+.day-pill .check{
+  display:none;
+}
+
+.day-pill.done .check{
+  display:inline;
+  color:var(--chalk);
+}
+
+/* MAIN */
+
+main{
+  padding:8px 18px 30px;
+}
+
+.day-label{
+  padding:18px 2px 10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.day-label h2{
+  font-size:20px;
+}
+
+.focus{
+  color:var(--text-dim);
+  font-size:12px;
+}
+
+/* EXERCISES */
+
+.ex-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:14px;
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.ex-card.checked{
+  border-color:var(--chalk-dim);
+  background:linear-gradient(
+    90deg,
+    rgba(215,255,63,.07),
+    rgba(215,255,63,.02)
+  );
+}
+
+.checkbox{
+  width:26px;
+  height:26px;
+  border-radius:8px;
+  border:2px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+
+.checkbox.on{
+  background:var(--chalk);
+  border-color:var(--chalk);
+}
+
+.checkbox svg{
+  width:14px;
+  opacity:0;
+}
+
+.checkbox.on svg{
+  opacity:1;
+}
+
+.ex-info{
+  flex:1;
+}
+
+.ex-name{
+  font-size:14.5px;
+  font-weight:600;
+}
+
+.ex-card.checked .ex-name{
+  color:var(--text-dim);
+  text-decoration:line-through;
+}
+
+.ex-meta{
+  font-size:12px;
+  color:var(--text-dim);
+  margin-top:2px;
+}
+
+/* BUTTONS */
+
+.finish-btn{
+  width:100%;
+  margin-top:16px;
+  padding:16px;
+  border:none;
+  border-radius:12px;
+  background:var(--chalk);
+  color:#12140A;
+  font-family:'Oswald',sans-serif;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.finish-btn:disabled{
+  opacity:.45;
+}
+
+.reset-btn{
+  width:100%;
+  margin-top:10px;
+  padding:14px;
+  border:1px solid var(--ember);
+  border-radius:12px;
+  background:transparent;
+  color:var(--ember);
+  font-family:'Oswald',sans-serif;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* BOARD */
+
+.board{
+  margin:22px 2px 4px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:16px;
+}
+
+.board-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.board-head h3{
+  font-size:13px;
+  color:var(--text-dim);
+}
+
+.count{
+  font-family:'Oswald';
+  font-size:22px;
+  color:var(--chalk);
+}
+
+.stat-row{
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+}
+
+.stat-box{
+  flex:1;
+  background:var(--surface-2);
+  border-radius:10px;
+  padding:12px;
+  text-align:center;
+}
+
+.num{
+  font-family:'Oswald';
+  font-size:22px;
+}
+
+.lab{
+  font-size:10px;
+  color:var(--text-dim);
+  text-transform:uppercase;
+}
+
+/* CALENDAR */
+
+.calendar{
+  margin-top:22px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:16px;
+}
+
+.calendar-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:16px;
+}
+
+.calendar-header h3{
+  font-size:18px;
+}
+
+.month-btn{
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  color:var(--chalk);
+  width:34px;
+  height:34px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:18px;
+}
+
+.weekdays,
+.calendar-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+}
+
+.weekdays div{
+  text-align:center;
+  font-size:10px;
+  color:var(--text-dim);
+}
+
+.calendar-day{
+  aspect-ratio:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  font-size:12px;
+  background:var(--surface-2);
+}
+
+.calendar-day.empty{
+  background:transparent;
+}
+
+.calendar-day.today{
+  border:1px solid var(--chalk);
+}
+
+.calendar-day.workout{
+  background:var(--chalk);
+  color:#12140A;
+  font-weight:700;
+}
+
+.calendar-day.today.workout{
+  box-shadow:0 0 10px rgba(215,255,63,.5);
+}
+
+.toast{
+  position:fixed;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--chalk);
+  color:#12140A;
+  padding:10px 18px;
+  border-radius:999px;
+  opacity:0;
+  transition:.25s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%);
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="brand">
+    <div class="title">
+      <span class="dot"></span>
+      IRON LOG
+    </div>
+
+    <div class="sub" id="dateLabel">—</div>
+  </div>
+
+  <div class="phase-switch" id="phaseSwitch"></div>
+
+</header>
+
+<div class="day-row" id="dayRow"></div>
+
+<main>
+
+  <div class="day-label">
+    <h2 id="dayTitle">—</h2>
+    <span class="focus" id="dayFocus"></span>
+  </div>
+
+  <div id="exList"></div>
+
+  <button class="finish-btn" id="finishBtn">
+    Finish Workout
+  </button>
+
+  <button class="reset-btn" id="resetBtn">
+    Reset This Week
+  </button>
+
+
+  <!-- STATS -->
+
+  <div class="board">
+
+    <div class="board-head">
+      <h3>Sessions Logged</h3>
+      <div class="count" id="tallyCount">0</div>
+    </div>
+
+    <div class="stat-row">
+
+      <div class="stat-box">
+        <div class="num" id="statWeek">0/5</div>
+        <div class="lab">This Week</div>
+      </div>
+
+      <div class="stat-box">
+        <div class="num" id="statPhase">0%</div>
+        <div class="lab">Phase Progress</div>
+      </div>
+
+      <div class="stat-box">
+        <div class="num" id="statTotal">0</div>
+        <div class="lab">All Time</div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- CALENDAR -->
+
+  <div class="calendar">
+
+    <div class="calendar-header">
+
+      <button class="month-btn" id="prevMonth">‹</button>
+
+      <h3 id="monthLabel">August 2026</h3>
+
+      <button class="month-btn" id="nextMonth">›</button>
+
+    </div>
+
+    <div class="weekdays">
+      <div>S</div>
+      <div>M</div>
+      <div>T</div>
+      <div>W</div>
+      <div>T</div>
+      <div>F</div>
+      <div>S</div>
+    </div>
+
+    <div class="calendar-grid" id="calendarGrid"></div>
+
+  </div>
+
+</main>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================
+   YOUR GYM PLAN
+========================= */
+
+const PLAN = {
+
+1:{
+days:{
+
+1:{
+title:"Legs & Glutes",
+focus:"Foundation",
+exercises:[
+{n:"Leg extension machine",m:"3 x 15"},
+{n:"Leg curl machine",m:"3 x 15"},
+{n:"Barbell squats",m:"4 x 12"},
+{n:"Walking lunges",m:"3 x 12 / leg"},
+{n:"Dumbbell glute bridges",m:"3 x 15"},
+{n:"Plank",m:"3 x 30 sec"},
+{n:"Bicycle crunches",m:"3 x 20"}
+]},
+
+2:{
+title:"Push / Pull + Forearms",
+focus:"Upper Body",
+exercises:[
+{n:"Dumbbell shoulder press",m:"3 x 12"},
+{n:"Lat pulldown",m:"3 x 12"},
+{n:"Dumbbell bench press",m:"3 x 12"},
+{n:"Wrist curls",m:"3 x 20"},
+{n:"Reverse wrist curls",m:"3 x 15"},
+{n:"Cable woodchoppers",m:"3 x 15"}
+]},
+
+3:{
+title:"Cardio + Core",
+focus:"Fat-loss",
+exercises:[
+{n:"Steady cardio",m:"20–25 min"},
+{n:"Hanging leg raises",m:"3 x 12"},
+{n:"Russian twists",m:"3 x 20"},
+{n:"Cable crunches",m:"3 x 15"},
+{n:"Side plank",m:"3 x 30 sec"},
+{n:"Mountain climbers",m:"3 x 30 sec"}
+]},
+
+4:{
+title:"Back & Biceps",
+focus:"Pull Day",
+exercises:[
+{n:"Barbell rows",m:"3 x 12"},
+{n:"Lat pulldown",m:"3 x 12"},
+{n:"EZ bar curls",m:"3 x 12"},
+{n:"Hammer curls",m:"3 x 15"},
+{n:"Farmer's carry",m:"3 x 30 sec"},
+{n:"Plank",m:"3 x 30 sec"}
+]},
+
+5:{
+title:"Glutes / Core",
+focus:"Finisher",
+exercises:[
+{n:"Romanian deadlifts",m:"4 x 15"},
+{n:"Glute bridges",m:"3 x 15"},
+{n:"Cable hip abduction",m:"3 x 15"},
+{n:"Cable woodchoppers",m:"3 x 15"},
+{n:"Oblique raises",m:"3 x 12"},
+{n:"Light cardio",m:"15 min"}
+]}
+
+}},
+
+2:{
+days:{
+
+1:{
+title:"Legs & Glutes",
+focus:"Heavier",
+exercises:[
+{n:"Barbell squats",m:"4 x 8"},
+{n:"Leg extension",m:"4 x 12"},
+{n:"Leg curl",m:"4 x 12"},
+{n:"Bulgarian split squats",m:"3 x 10"},
+{n:"Glute bridges",m:"4 x 15"},
+{n:"Plank",m:"3 x 45 sec"}
+]},
+
+2:{
+title:"Push / Pull",
+focus:"Supersets",
+exercises:[
+{n:"Shoulder press",m:"4 x 10"},
+{n:"Lat pulldown",m:"4 x 10"},
+{n:"Bench press",m:"4 x 10"},
+{n:"Wrist curls",m:"3 rounds"},
+{n:"Plate pinch",m:"3 x 30 sec"}
+]},
+
+3:{
+title:"Cardio + Core",
+focus:"Intervals",
+exercises:[
+{n:"Cardio intervals",m:"25–30 min"},
+{n:"Hanging leg raises",m:"4 x 12"},
+{n:"Weighted Russian twists",m:"4 x 20"},
+{n:"Cable crunches",m:"4 x 15"},
+{n:"Mountain climbers",m:"4 x 30 sec"}
+]},
+
+4:{
+title:"Back & Biceps",
+focus:"Pull Day",
+exercises:[
+{n:"Barbell rows",m:"4 x 10"},
+{n:"Lat pulldown",m:"4 x 10"},
+{n:"EZ bar curls",m:"4 x 10"},
+{n:"Hammer curls",m:"3 rounds"},
+{n:"Farmer's carry",m:"4 x 40 sec"}
+]},
+
+5:{
+title:"Glutes / Core",
+focus:"Finisher",
+exercises:[
+{n:"Romanian deadlifts",m:"4 x 12"},
+{n:"Glute bridges",m:"4 x 15"},
+{n:"Hip abduction",m:"4 x 15"},
+{n:"Woodchoppers",m:"4 x 15"},
+{n:"Oblique raises",m:"4 x 12"},
+{n:"Cardio",m:"20 min"}
+]}
+
+}}
+
+};
+
+
+/* =========================
+   STATE
+========================= */
+
+let state={
+phase:1,
+day:1,
+checked:{},
+sessions:[]
+};
+
+let calendarDate=new Date();
+
+
+const $=id=>document.getElementById(id);
+
+
+/* =========================
+   DATE
+========================= */
+
+function todayISO(){
+
+const d=new Date();
+
+const year=d.getFullYear();
+const month=String(d.getMonth()+1).padStart(2,'0');
+const day=String(d.getDate()).padStart(2,'0');
+
+return `${year}-${month}-${day}`;
+
+}
+
+function dateToISO(date){
+
+const year=date.getFullYear();
+const month=String(date.getMonth()+1).padStart(2,'0');
+const day=String(date.getDate()).padStart(2,'0');
+
+return `${year}-${month}-${day}`;
+
+}
+
+
+/* =========================
+   LOCAL STORAGE
+========================= */
+
+function loadState(){
+
+try{
+
+const data=localStorage.getItem("ironlog_data");
+
+if(data){
+
+const saved=JSON.parse(data);
+
+state.phase=saved.phase||1;
+state.day=saved.day||1;
+state.checked=saved.checked||{};
+state.sessions=saved.sessions||[];
+
+}
+
+}catch(e){
+
+console.log(e);
+
+}
+
+}
+
+function saveState(){
+
+localStorage.setItem(
+"ironlog_data",
+JSON.stringify(state)
+);
+
+}
+
+
+/* =========================
+   PHASE
+========================= */
+
+function renderPhaseSwitch(){
+
+const el=$("phaseSwitch");
+
+el.innerHTML="";
+
+[1,2].forEach(p=>{
+
+const btn=document.createElement("button");
+
+btn.className=
+"phase-btn "+(state.phase===p?"active":"");
+
+btn.textContent=
+p===1?
+"Phase 1 · Weeks 1–2":
+"Phase 2 · Weeks 3–4";
+
+btn.onclick=()=>{
+
+state.phase=p;
+state.day=1;
+state.checked={};
+
+saveState();
+renderAll();
+
+};
+
+el.appendChild(btn);
+
+});
+
+}
+
+
+/* =========================
+   CHECK IF DONE TODAY
+========================= */
+
+function isSessionDone(phase,day){
+
+return state.sessions.some(s=>
+s.date===todayISO() &&
+s.phase===phase &&
+s.day===day
+);
+
+}
+
+
+/* =========================
+   DAY BUTTONS
+========================= */
+
+function renderDayRow(){
+
+const el=$("dayRow");
+
+el.innerHTML="";
+
+[1,2,3,4,5].forEach(d=>{
+
+const done=isSessionDone(state.phase,d);
+
+const pill=document.createElement("div");
+
+pill.className=
+"day-pill "+
+(state.day===d?"active ":"")+
+(done?"done":"");
+
+pill.innerHTML=
+`DAY ${d} <span class="check">✓</span>`;
+
+pill.onclick=()=>{
+
+state.day=d;
+state.checked={};
+
+saveState();
+renderAll();
+
+};
+
+el.appendChild(pill);
+
+});
+
+}
+
+
+/* =========================
+   EXERCISES
+========================= */
+
+function renderDay(){
+
+const data=
+PLAN[state.phase].days[state.day];
+
+$("dayTitle").textContent=
+`Day ${state.day} — ${data.title}`;
+
+$("dayFocus").textContent=data.focus;
+
+
+const list=$("exList");
+
+list.innerHTML="";
+
+const done=isSessionDone(
+state.phase,
+state.day
+);
+
+
+data.exercises.forEach((ex,i)=>{
+
+const checked=
+state.checked[i] || done;
+
+const card=document.createElement("div");
+
+card.className=
+"ex-card "+(checked?"checked":"");
+
+card.innerHTML=`
+
+<div class="checkbox ${checked?"on":""}">
+
+<svg viewBox="0 0 24 24" fill="none">
+<path d="M4 12l5 5L20 6"
+stroke="#12140A"
+stroke-width="3"/>
+</svg>
+
+</div>
+
+<div class="ex-info">
+
+<div class="ex-name">${ex.n}</div>
+
+<div class="ex-meta">${ex.m}</div>
+
+</div>
+
+`;
+
+const box=
+card.querySelector(".checkbox");
+
+
+if(!done){
+
+box.onclick=()=>{
+
+state.checked[i]=!state.checked[i];
+
+saveState();
+
+renderDay();
+
+};
+
+}
+
+list.appendChild(card);
+
+});
+
+
+const finish=$("finishBtn");
+
+
+if(done){
+
+finish.textContent="✓ Workout Logged";
+
+finish.disabled=true;
+
+}else{
+
+finish.textContent="Finish Workout";
+
+finish.disabled=false;
+
+}
+
+}
+
+
+/* =========================
+   FINISH WORKOUT
+========================= */
+
+function finishWorkout(){
+
+const data=
+PLAN[state.phase].days[state.day];
+
+const total=data.exercises.length;
+
+const completed=
+Object.values(state.checked)
+.filter(Boolean)
+.length;
+
+
+if(completed<total){
+
+showToast(
+`Complete all ${total} exercises first`
+);
+
+return;
+
+}
+
+
+state.sessions.push({
+
+date:todayISO(),
+
+phase:state.phase,
+
+day:state.day,
+
+ts:Date.now()
+
+});
+
+
+state.checked={};
+
+
+saveState();
+
+showToast("Workout logged 💪");
+
+renderAll();
+
+}
+
+
+/* =========================
+   WEEK RESET
+========================= */
+
+function getWeekRange(){
+
+const now=new Date();
+
+const day=now.getDay();
+
+const mondayOffset=
+day===0?-6:1-day;
+
+const monday=new Date(now);
+
+monday.setDate(
+now.getDate()+mondayOffset
+);
+
+monday.setHours(0,0,0,0);
+
+
+const sunday=new Date(monday);
+
+sunday.setDate(
+monday.getDate()+6
+);
+
+sunday.setHours(
+23,59,59,999
+);
+
+return{
+monday,
+sunday
+};
+
+}
+
+
+function resetWeek(){
+
+const confirmReset=confirm(
+
+"Reset this week's workouts?\n\nYour all-time history will stay saved."
+
+);
+
+if(!confirmReset)return;
+
+
+const range=getWeekRange();
+
+
+state.sessions=
+state.sessions.filter(s=>{
+
+const date=
+new Date(s.date+"T12:00:00");
+
+return !(
+date>=range.monday &&
+date<=range.sunday
+);
+
+});
+
+
+state.checked={};
+
+
+saveState();
+
+showToast("Week reset successfully");
+
+renderAll();
+
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+function renderStats(){
+
+const range=getWeekRange();
+
+
+const weekSessions=
+state.sessions.filter(s=>{
+
+const d=
+new Date(s.date+"T12:00:00");
+
+return d>=range.monday &&
+d<=range.sunday;
+
+});
+
+
+const unique=
+new Set(
+weekSessions.map(s=>s.date)
+).size;
+
+
+$("statWeek").textContent=
+`${Math.min(unique,5)}/5`;
+
+
+const phaseSessions=
+state.sessions.filter(
+s=>s.phase===state.phase
+);
+
+
+const phaseDays=
+new Set(
+phaseSessions.map(
+s=>s.day
+)
+).size;
+
+
+$("statPhase").textContent=
+Math.round(
+(phaseDays/5)*100
+)+"%";
+
+
+$("statTotal").textContent=
+state.sessions.length;
+
+
+$("tallyCount").textContent=
+state.sessions.length;
+
+}
+
+
+/* =========================
+   CALENDAR
+========================= */
+
+function renderCalendar(){
+
+const year=
+calendarDate.getFullYear();
+
+const month=
+calendarDate.getMonth();
+
+
+const monthName=
+calendarDate.toLocaleDateString(
+"en-US",
+{
+month:"long",
+year:"numeric"
+}
+);
+
+
+$("monthLabel").textContent=
+monthName;
+
+
+const grid=
+$("calendarGrid");
+
+
+grid.innerHTML="";
+
+
+const firstDay=
+new Date(year,month,1)
+.getDay();
+
+
+const daysInMonth=
+new Date(
+year,
+month+1,
+0
+).getDate();
+
+
+/* Empty spaces */
+
+for(let i=0;i<firstDay;i++){
+
+const empty=
+document.createElement("div");
+
+empty.className=
+"calendar-day empty";
+
+grid.appendChild(empty);
+
+}
+
+
+/* Workout dates */
+
+const workoutDates=
+new Set(
+state.sessions.map(s=>s.date)
+);
+
+
+for(let day=1;day<=daysInMonth;day++){
+
+const cell=
+document.createElement("div");
+
+const date=
+new Date(year,month,day);
+
+const iso=
+dateToISO(date);
+
+
+cell.className=
+"calendar-day";
+
+
+if(iso===todayISO()){
+
+cell.classList.add("today");
+
+}
+
+
+if(workoutDates.has(iso)){
+
+cell.classList.add("workout");
+
+}
+
+
+cell.textContent=day;
+
+
+grid.appendChild(cell);
+
+}
+
+}
+
+
+/* =========================
+   MONTH BUTTONS
+========================= */
+
+$("prevMonth").onclick=()=>{
+
+calendarDate.setMonth(
+calendarDate.getMonth()-1
+);
+
+renderCalendar();
+
+};
+
+
+$("nextMonth").onclick=()=>{
+
+calendarDate.setMonth(
+calendarDate.getMonth()+1
+);
+
+renderCalendar();
+
+};
+
+
+/* =========================
+   TOAST
+========================= */
+
+function showToast(msg){
+
+const toast=$("toast");
+
+toast.textContent=msg;
+
+toast.classList.add("show");
+
+clearTimeout(showToast.timer);
+
+showToast.timer=setTimeout(()=>{
+
+toast.classList.remove("show");
+
+},2000);
+
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function renderAll(){
+
+$("dateLabel").textContent=
+
+new Date()
+.toLocaleDateString(
+"en-US",
+{
+weekday:"short",
+month:"short",
+day:"numeric"
+}
+)
+.toUpperCase();
+
+
+renderPhaseSwitch();
+
+renderDayRow();
+
+renderDay();
+
+renderStats();
+
+renderCalendar();
+
+}
+
+
+/* =========================
+   EVENTS
+========================= */
+
+$("finishBtn")
+.addEventListener(
+"click",
+finishWorkout
+);
+
+
+$("resetBtn")
+.addEventListener(
+"click",
+resetWeek
+);
+
+
+/* =========================
+   START
+========================= */
+
+loadState();
+
+renderAll();
+
+</script>
+
+</body>
+</html>
