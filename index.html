@@ -2,397 +2,328 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>IRON LOG</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap');
 
 :root{
   --bg:#121417;
-  --surface:#1B1E22;
-  --surface-2:#20242A;
-  --line:#2A2E33;
-  --chalk:#D7FF3F;
-  --chalk-dim:#9CC22B;
-  --ember:#FF6B4A;
-  --text:#F2F3EE;
-  --text-dim:#8A8F96;
-  --radius:14px;
+  --surface:#1b1e22;
+  --surface2:#22272f;
+  --line:#2d333b;
+  --lime:#d7ff3f;
+  --lime2:#a8cf35;
+  --red:#ff6b4a;
+  --text:#f2f3ee;
+  --muted:#9098a3;
 }
 
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
+*{box-sizing:border-box}
 
-html,body{
-  margin:0;
-  padding:0;
-}
+html{scroll-behavior:smooth}
 
 body{
+  margin:0;
   background:
-    radial-gradient(circle at 15% 0%, rgba(215,255,63,0.05), transparent 40%),
+    radial-gradient(circle at 10% 0%,rgba(215,255,63,.06),transparent 30%),
     var(--bg);
   color:var(--text);
-  font-family:'Inter',system-ui,sans-serif;
-  min-height:100vh;
-  padding-bottom:30px;
+  font-family:Inter,Arial,sans-serif;
 }
 
-h1,h2,h3,.display{
-  font-family:'Oswald',system-ui,sans-serif;
-  text-transform:uppercase;
-  letter-spacing:.02em;
-  margin:0;
-}
-
-/* HEADER */
+button{font:inherit}
 
 header{
-  padding:22px 18px 16px;
   position:sticky;
   top:0;
   z-index:20;
-  background:linear-gradient(180deg,var(--bg) 70%,rgba(18,20,23,.95));
-  backdrop-filter:blur(6px);
+  background:rgba(18,20,23,.96);
+  backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
+  padding:20px 18px 14px;
 }
 
 .brand{
   display:flex;
-  align-items:baseline;
   justify-content:space-between;
+  align-items:center;
 }
 
-.brand .title{
+.logo{
+  font-family:Oswald,sans-serif;
   font-size:28px;
   font-weight:700;
-  display:flex;
-  align-items:center;
-  gap:8px;
+  letter-spacing:.5px;
 }
 
-.brand .title .dot{
+.dot{
+  display:inline-block;
   width:9px;
   height:9px;
   border-radius:50%;
-  background:var(--chalk);
-  box-shadow:0 0 10px var(--chalk);
+  background:var(--lime);
+  box-shadow:0 0 12px var(--lime);
+  margin-right:9px;
 }
 
-.brand .sub{
-  font-size:11px;
-  color:var(--text-dim);
-  letter-spacing:.14em;
-  font-family:'Oswald',sans-serif;
+.date{
+  font-family:Oswald,sans-serif;
+  color:var(--muted);
+  font-size:12px;
+  letter-spacing:1px;
 }
 
-/* MAIN NAVIGATION */
+/* NAVIGATION */
 
-.phase-switch{
-  margin-top:16px;
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  padding-bottom:2px;
-}
-
-.phase-btn{
-  flex:0 0 auto;
-  padding:10px 14px;
-  border-radius:10px;
-  border:1px solid var(--line);
-  background:var(--surface);
-  color:var(--text-dim);
-  font-family:'Oswald',sans-serif;
-  font-size:13px;
-  cursor:pointer;
-}
-
-.phase-btn.active{
-  background:var(--chalk);
-  color:#12140A;
-  border-color:var(--chalk);
-}
-
-/* DAY ROW */
-
+.nav,
 .day-row{
   display:flex;
   gap:8px;
-  padding:16px 18px 4px;
   overflow-x:auto;
+  scrollbar-width:none;
 }
 
-.day-pill{
-  flex:0 0 auto;
-  padding:10px 14px;
-  border-radius:999px;
-  border:1px solid var(--line);
-  background:var(--surface);
-  color:var(--text-dim);
-  font-size:13px;
-  font-weight:600;
-  display:flex;
-  align-items:center;
-  gap:6px;
-  cursor:pointer;
+.nav{
+  margin-top:15px;
 }
 
-.day-pill.active{
-  border-color:var(--chalk);
-  color:var(--chalk);
-  background:rgba(215,255,63,.08);
-}
-
-.day-pill.done{
-  border-color:var(--chalk-dim);
-}
-
-.day-pill .check{
+.nav::-webkit-scrollbar,
+.day-row::-webkit-scrollbar{
   display:none;
 }
 
-.day-pill.done .check{
-  display:inline;
-  color:var(--chalk);
+.nav button,
+.day-pill{
+  flex:0 0 auto;
+  border:1px solid var(--line);
+  background:var(--surface);
+  color:var(--muted);
+  padding:10px 14px;
+  border-radius:10px;
+  cursor:pointer;
+  font-family:Oswald,sans-serif;
+  font-weight:600;
+}
+
+.nav button.active{
+  background:var(--lime);
+  color:#141600;
+  border-color:var(--lime);
+}
+
+.day-row{
+  padding:15px 18px 0;
+}
+
+.day-pill.active{
+  border-color:var(--lime);
+  color:var(--lime);
+  background:rgba(215,255,63,.07);
+}
+
+.day-pill.done{
+  border-color:var(--lime2);
 }
 
 /* MAIN */
 
 main{
+  max-width:900px;
+  margin:auto;
   padding:8px 18px 30px;
 }
 
-.day-label{
-  padding:18px 2px 10px;
+.heading{
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  gap:10px;
+  gap:12px;
+  align-items:end;
+  padding:20px 0 12px;
 }
 
-.day-label h2{
-  font-size:20px;
+.heading h2,
+.section-title{
+  margin:0;
+  font-family:Oswald,sans-serif;
+  letter-spacing:.4px;
 }
 
 .focus{
-  color:var(--text-dim);
+  color:var(--muted);
   font-size:12px;
   text-align:right;
 }
 
 /* EXERCISES */
 
-.ex-card{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:14px;
-  margin-bottom:10px;
+.exercise,
+.reference-card{
   display:flex;
   align-items:center;
   gap:12px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px;
+  margin-bottom:10px;
 }
 
-.ex-card.checked{
-  border-color:var(--chalk-dim);
+.exercise.checked{
+  border-color:var(--lime2);
   background:linear-gradient(
     90deg,
-    rgba(215,255,63,.07),
+    rgba(215,255,63,.08),
     rgba(215,255,63,.02)
   );
 }
 
 .checkbox{
-  width:26px;
-  height:26px;
-  flex:0 0 26px;
-  border-radius:8px;
+  width:27px;
+  height:27px;
   border:2px solid var(--line);
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  border-radius:8px;
+  display:grid;
+  place-items:center;
   cursor:pointer;
+  flex:0 0 auto;
 }
 
 .checkbox.on{
-  background:var(--chalk);
-  border-color:var(--chalk);
+  background:var(--lime);
+  border-color:var(--lime);
+  color:#111;
 }
 
-.checkbox svg{
-  width:14px;
-  opacity:0;
-}
-
-.checkbox.on svg{
-  opacity:1;
-}
-
-.ex-info{
-  flex:1;
-}
-
-.ex-name{
-  font-size:14.5px;
+.exercise-name{
   font-weight:600;
+  font-size:14px;
 }
 
-.ex-card.checked .ex-name{
-  color:var(--text-dim);
+.checked .exercise-name{
   text-decoration:line-through;
+  color:var(--muted);
 }
 
-.ex-meta{
-  font-size:12px;
-  color:var(--text-dim);
+.meta{
+  font-size:11px;
+  color:var(--muted);
   margin-top:3px;
-}
-
-/* REFERENCE LISTS */
-
-.reference-card{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:15px;
-  margin-bottom:10px;
-}
-
-.reference-number{
-  color:var(--chalk);
-  font-family:'Oswald',sans-serif;
-  font-weight:700;
-  margin-right:10px;
-}
-
-.category-title{
-  margin:22px 0 10px;
-  font-size:20px;
-  color:var(--chalk);
 }
 
 /* BUTTONS */
 
-.finish-btn{
+.finish{
   width:100%;
-  margin-top:16px;
+  border:0;
+  background:var(--lime);
+  color:#111;
   padding:16px;
-  border:none;
   border-radius:12px;
-  background:var(--chalk);
-  color:#12140A;
-  font-family:'Oswald',sans-serif;
-  font-size:15px;
+  margin-top:16px;
+  font-family:Oswald,sans-serif;
+  font-size:16px;
   font-weight:700;
   cursor:pointer;
 }
 
-.finish-btn:disabled{
-  opacity:.45;
+.finish:disabled{
+  opacity:.55;
   cursor:not-allowed;
 }
 
-.reset-btn{
+.reset{
   width:100%;
-  margin-top:10px;
-  padding:14px;
-  border:1px solid var(--ember);
-  border-radius:12px;
+  border:1px solid var(--red);
   background:transparent;
-  color:var(--ember);
-  font-family:'Oswald',sans-serif;
-  font-size:14px;
+  color:var(--red);
+  padding:14px;
+  border-radius:12px;
+  margin-top:10px;
+  font-family:Oswald,sans-serif;
   font-weight:700;
   cursor:pointer;
 }
 
-/* BOARD */
+/* STATS */
 
-.board{
-  margin:22px 2px 4px;
+.panel{
+  margin-top:22px;
   background:var(--surface);
   border:1px solid var(--line);
-  border-radius:var(--radius);
+  border-radius:15px;
   padding:16px;
 }
 
-.board-head{
+.panel-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
 
-.board-head h3{
-  font-size:13px;
-  color:var(--text-dim);
+.panel-head h3{
+  margin:0;
+  font-family:Oswald,sans-serif;
+  font-size:14px;
+  color:var(--muted);
 }
 
 .count{
-  font-family:'Oswald';
-  font-size:22px;
-  color:var(--chalk);
+  font-family:Oswald,sans-serif;
+  font-size:24px;
+  color:var(--lime);
 }
 
-.stat-row{
-  display:flex;
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
   gap:10px;
   margin-top:14px;
 }
 
-.stat-box{
-  flex:1;
-  background:var(--surface-2);
-  border-radius:10px;
-  padding:12px 6px;
+.stat{
+  background:var(--surface2);
+  padding:14px 8px;
   text-align:center;
+  border-radius:10px;
 }
 
 .num{
-  font-family:'Oswald';
-  font-size:22px;
+  font-family:Oswald,sans-serif;
+  font-size:23px;
 }
 
 .lab{
   font-size:9px;
-  color:var(--text-dim);
   text-transform:uppercase;
+  color:var(--muted);
+  margin-top:3px;
 }
 
 /* CALENDAR */
 
-.calendar{
-  margin-top:22px;
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:16px;
-}
-
-.calendar-header{
+.cal-head{
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  margin-bottom:16px;
+  justify-content:space-between;
+  margin-bottom:14px;
 }
 
-.calendar-header h3{
-  font-size:18px;
+.cal-head h3{
+  font-family:Oswald,sans-serif;
+  margin:0;
 }
 
 .month-btn{
-  background:var(--surface-2);
-  border:1px solid var(--line);
-  color:var(--chalk);
   width:34px;
   height:34px;
-  border-radius:8px;
+  border-radius:9px;
+  border:1px solid var(--line);
+  background:var(--surface2);
+  color:var(--lime);
   cursor:pointer;
-  font-size:18px;
 }
 
 .weekdays,
@@ -405,17 +336,16 @@ main{
 .weekdays div{
   text-align:center;
   font-size:10px;
-  color:var(--text-dim);
+  color:var(--muted);
 }
 
 .calendar-day{
   aspect-ratio:1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
   border-radius:8px;
+  background:var(--surface2);
+  display:grid;
+  place-items:center;
   font-size:12px;
-  background:var(--surface-2);
 }
 
 .calendar-day.empty{
@@ -423,40 +353,74 @@ main{
 }
 
 .calendar-day.today{
-  border:1px solid var(--chalk);
+  outline:1px solid var(--lime);
 }
 
 .calendar-day.workout{
-  background:var(--chalk);
-  color:#12140A;
+  background:var(--lime);
+  color:#121400;
   font-weight:700;
 }
 
-.calendar-day.today.workout{
-  box-shadow:0 0 10px rgba(215,255,63,.5);
+/* REFERENCE */
+
+.category{
+  margin-top:24px;
+  color:var(--lime);
+  font-family:Oswald,sans-serif;
+  font-size:22px;
 }
+
+.ref-number{
+  font-family:Oswald,sans-serif;
+  color:var(--lime);
+  min-width:24px;
+}
+
+/* TOAST */
 
 .toast{
   position:fixed;
-  bottom:30px;
+  bottom:25px;
   left:50%;
-  transform:translateX(-50%) translateY(20px);
-  background:var(--chalk);
-  color:#12140A;
-  padding:10px 18px;
-  border-radius:999px;
+  transform:translate(-50%,20px);
   opacity:0;
   transition:.25s;
-  z-index:100;
+  background:var(--lime);
+  color:#111;
+  padding:10px 18px;
+  border-radius:999px;
+  font-weight:700;
+  z-index:50;
 }
 
 .toast.show{
   opacity:1;
-  transform:translateX(-50%);
+  transform:translate(-50%,0);
 }
 
 .hidden{
-  display:none !important;
+  display:none!important;
+}
+
+@media(max-width:520px){
+
+  .date{
+    display:none;
+  }
+
+  .heading h2{
+    font-size:20px;
+  }
+
+  .stats{
+    gap:6px;
+  }
+
+  .num{
+    font-size:20px;
+  }
+
 }
 </style>
 </head>
@@ -466,434 +430,485 @@ main{
 <header>
 
   <div class="brand">
-    <div class="title">
-      <span class="dot"></span>
-      IRON LOG
+
+    <div class="logo">
+      <span class="dot"></span>IRON LOG
     </div>
 
-    <div class="sub" id="dateLabel">—</div>
+    <div class="date" id="dateLabel"></div>
+
   </div>
 
-  <div class="phase-switch" id="mainNav"></div>
+  <div class="nav" id="mainNav"></div>
 
 </header>
 
+
 <div class="day-row" id="dayRow"></div>
+
 
 <main>
 
-  <div class="day-label">
-    <h2 id="dayTitle">—</h2>
-    <span class="focus" id="dayFocus"></span>
+  <div class="heading">
+
+    <h2 id="dayTitle"></h2>
+
+    <div class="focus" id="dayFocus"></div>
+
   </div>
+
 
   <div id="contentArea"></div>
 
-  <button class="finish-btn" id="finishBtn">
-    Finish Workout
+
+  <button class="finish" id="finishBtn">
+    FINISH WORKOUT
   </button>
 
-  <button class="reset-btn" id="resetBtn">
-    Reset This Week
+
+  <button class="reset" id="resetBtn">
+    RESET THIS WEEK
   </button>
 
-  <div class="board" id="statsBoard">
 
-    <div class="board-head">
-      <h3>Sessions Logged</h3>
+  <!-- STATS -->
+
+  <section class="panel" id="statsBoard">
+
+    <div class="panel-head">
+
+      <h3>SESSIONS LOGGED</h3>
+
       <div class="count" id="tallyCount">0</div>
+
     </div>
 
-    <div class="stat-row">
 
-      <div class="stat-box">
+    <div class="stats">
+
+      <div class="stat">
+
         <div class="num" id="statWeek">0/6</div>
+
         <div class="lab">This Week</div>
+
       </div>
 
-      <div class="stat-box">
+
+      <div class="stat">
+
         <div class="num" id="statProgress">0%</div>
+
         <div class="lab">Week Progress</div>
+
       </div>
 
-      <div class="stat-box">
+
+      <div class="stat">
+
         <div class="num" id="statTotal">0</div>
+
         <div class="lab">All Time</div>
+
       </div>
 
     </div>
 
-  </div>
+  </section>
 
-  <div class="calendar" id="calendarBox">
 
-    <div class="calendar-header">
+  <!-- CALENDAR -->
+
+  <section class="panel" id="calendarBox">
+
+    <div class="cal-head">
+
       <button class="month-btn" id="prevMonth">‹</button>
-      <h3 id="monthLabel">August 2026</h3>
+
+      <h3 id="monthLabel"></h3>
+
       <button class="month-btn" id="nextMonth">›</button>
+
     </div>
+
 
     <div class="weekdays">
-      <div>S</div><div>M</div><div>T</div><div>W</div>
-      <div>T</div><div>F</div><div>S</div>
+
+      <div>S</div>
+      <div>M</div>
+      <div>T</div>
+      <div>W</div>
+      <div>T</div>
+      <div>F</div>
+      <div>S</div>
+
     </div>
+
 
     <div class="calendar-grid" id="calendarGrid"></div>
 
-  </div>
+  </section>
 
 </main>
 
+
 <div class="toast" id="toast"></div>
+
 
 <script>
 
-/* =========================================
-   4 WEEK GYM PLAN
-========================================= */
+/* =====================================
+   4 WEEK WORKOUT PLAN
+===================================== */
 
 const PLAN = {
 
-1:{
-  days:{
+  1: {
+    days: {
 
-    1:{
-      title:"Chest + Triceps + Forearm",
-      focus:"Upper Body",
-      exercises:[
-        "Push-ups",
-        "Incline Bench Press",
-        "Bench Press",
-        "Cable Flys",
-        "Cable Rope Pushdown",
-        "EZ-Bar Skull Crusher",
-        "Wrist Curl"
-      ]
-    },
+      1: {
+        title: "Chest + Triceps + Forearm",
+        focus: "Upper Body",
+        exercises: [
+          "Push-ups",
+          "Incline Bench Press",
+          "Bench Press",
+          "Cable Flys",
+          "Cable Rope Pushdown",
+          "EZ-Bar Skull Crusher",
+          "Wrist Curl"
+        ]
+      },
 
-    2:{
-      title:"Back + Biceps + Forearm",
-      focus:"Upper Body",
-      exercises:[
-        "Pull-ups",
-        "Lat Pulldown",
-        "Barbell Rows",
-        "Lat Pullover",
-        "EZ-Bar Curl",
-        "Hammer Curl",
-        "Behind-the-Back Wrist Curl"
-      ]
-    },
+      2: {
+        title: "Back + Biceps + Forearm",
+        focus: "Upper Body",
+        exercises: [
+          "Pull-ups",
+          "Lat Pulldown",
+          "Barbell Rows",
+          "Lat Pullover",
+          "EZ-Bar Curl",
+          "Hammer Curl",
+          "Behind-the-Back Wrist Curl"
+        ]
+      },
 
-    3:{
-      title:"Abs",
-      focus:"Core",
-      exercises:[
-        "Rope Crunch",
-        "Hanging Leg Raise",
-        "Russian Twist",
-        "Crunch",
-        "V-Ups",
-        "Ground Outs"
-      ]
-    },
+      3: {
+        title: "Abs",
+        focus: "Core",
+        exercises: [
+          "Rope Crunch",
+          "Hanging Leg Raise",
+          "Russian Twist",
+          "Crunch",
+          "V-Ups",
+          "Ground Outs"
+        ]
+      },
 
-    4:{
-      title:"Legs",
-      focus:"Lower Body",
-      exercises:[
-        "Seated Leg Curl",
-        "Smith Squat",
-        "Romanian Deadlift",
-        "Leg Extension",
-        "Calf Raises",
-        "Split Squat"
-      ]
-    },
+      4: {
+        title: "Legs",
+        focus: "Lower Body",
+        exercises: [
+          "Seated Leg Curl",
+          "Smith Squat",
+          "Romanian Deadlift",
+          "Leg Extension",
+          "Calf Raises",
+          "Split Squat"
+        ]
+      },
 
-    5:{
-      title:"Shoulders",
-      focus:"Shoulders",
-      exercises:[
-        "Dumbbell Overhead Press",
-        "Dumbbell Lateral Raise",
-        "Front Raise",
-        "Face Pull",
-        "Reverse Fly",
-        "Single-Arm Cable Fly"
-      ]
-    },
+      5: {
+        title: "Shoulders",
+        focus: "Shoulders",
+        exercises: [
+          "Dumbbell Overhead Press",
+          "Dumbbell Lateral Raise",
+          "Front Raise",
+          "Face Pull",
+          "Reverse Fly",
+          "Single-Arm Cable Fly"
+        ]
+      },
 
-    6:{
-      title:"Abs",
-      focus:"Core",
-      exercises:[
-        "Mountain Climbers",
-        "Sit-Ups",
-        "Plank",
-        "Cross-Body Chop",
-        "Dumbbell Side Bends",
-        "Outside Cable Crunch"
-      ]
+      6: {
+        title: "Abs",
+        focus: "Core",
+        exercises: [
+          "Mountain Climbers",
+          "Sit-Ups",
+          "Plank",
+          "Cross-Body Chop",
+          "Dumbbell Side Bends",
+          "Outside Cable Crunch"
+        ]
+      }
+
     }
+  },
 
-  }
-},
 
-2:{
-  days:{
+  2: {
+    days: {
 
-    1:{
-      title:"Chest",
-      focus:"Pure Chest",
-      exercises:[
-        "Push-ups",
-        "Bench Press",
-        "Incline Bench Press",
-        "Dumbbell Fly - Half",
-        "Decline Bench Press",
-        "Low-to-High Cable Fly"
-      ]
-    },
+      1: {
+        title: "Chest",
+        focus: "Pure Chest",
+        exercises: [
+          "Push-ups",
+          "Bench Press",
+          "Incline Bench Press",
+          "Dumbbell Fly - Half",
+          "Decline Bench Press",
+          "Low-to-High Cable Fly"
+        ]
+      },
 
-    2:{
-      title:"Back",
-      focus:"Pure Back",
-      exercises:[
-        "Pull-ups",
-        "Lat Pulldown",
-        "Seated Row",
-        "Close-Grip Lat Pulldown",
-        "Deadlift",
-        "Reverse Cable Fly"
-      ]
-    },
+      2: {
+        title: "Back",
+        focus: "Pure Back",
+        exercises: [
+          "Pull-ups",
+          "Lat Pulldown",
+          "Seated Row",
+          "Close-Grip Lat Pulldown",
+          "Deadlift",
+          "Reverse Cable Fly"
+        ]
+      },
 
-    3:{
-      title:"Abs",
-      focus:"Core",
-      exercises:[
-        "Rope Crunch",
-        "Hanging Leg Raise",
-        "Russian Twist",
-        "Crunch",
-        "V-Ups",
-        "Ground Outs"
-      ]
-    },
+      3: {
+        title: "Abs",
+        focus: "Core",
+        exercises: [
+          "Rope Crunch",
+          "Hanging Leg Raise",
+          "Russian Twist",
+          "Crunch",
+          "V-Ups",
+          "Ground Outs"
+        ]
+      },
 
-    4:{
-      title:"Shoulders",
-      focus:"Pure Shoulders",
-      exercises:[
-        "Dumbbell Overhead Press",
-        "Dumbbell Lateral Raise",
-        "Front Raise",
-        "Face Pull",
-        "Reverse Fly",
-        "Single-Arm Cable Fly"
-      ]
-    },
+      4: {
+        title: "Shoulders",
+        focus: "Pure Shoulders",
+        exercises: [
+          "Dumbbell Overhead Press",
+          "Dumbbell Lateral Raise",
+          "Front Raise",
+          "Face Pull",
+          "Reverse Fly",
+          "Single-Arm Cable Fly"
+        ]
+      },
 
-    5:{
-      title:"Arms",
-      focus:"Biceps + Triceps",
-      exercises:[
-        "EZ-Bar Curl",
-        "Hammer Curl",
-        "Incline Dumbbell Curl",
-        "Dumbbell Curl",
-        "Concentration Curl",
-        "Preacher Curl"
-      ]
-    },
+      5: {
+        title: "Arms",
+        focus: "Biceps + Triceps",
+        exercises: [
+          "EZ-Bar Curl",
+          "Hammer Curl",
+          "Incline Dumbbell Curl",
+          "Dumbbell Curl",
+          "Concentration Curl",
+          "Preacher Curl"
+        ]
+      },
 
-    6:{
-      title:"Forearm",
-      focus:"Forearm Training",
-      exercises:[
-        "Wrist Curl",
-        "Reverse Wrist Curl",
-        "Behind-the-Back Wrist Curl",
-        "Cable Wrist Curl"
-      ]
+      6: {
+        title: "Forearm",
+        focus: "Forearm Training",
+        exercises: [
+          "Wrist Curl",
+          "Reverse Wrist Curl",
+          "Behind-the-Back Wrist Curl",
+          "Cable Wrist Curl"
+        ]
+      }
+
     }
+  },
 
-  }
-},
 
-3:{
-  days:{
+  3: {
+    days: {
 
-    1:{
-      title:"Chest",
-      focus:"Pure Chest",
-      exercises:[
-        "Cable Crossover",
-        "Pec Deck",
-        "Push-ups",
-        "Bench Press",
-        "Incline Bench Press",
-        "Dumbbell Fly - Half"
-      ]
-    },
+      1: {
+        title: "Chest",
+        focus: "Pure Chest",
+        exercises: [
+          "Cable Crossover",
+          "Pec Deck",
+          "Push-ups",
+          "Bench Press",
+          "Incline Bench Press",
+          "Dumbbell Fly - Half"
+        ]
+      },
 
-    2:{
-      title:"Back",
-      focus:"Pure Back",
-      exercises:[
-        "Deadlift",
-        "One-Hand Dumbbell Row",
-        "Single-Arm Pulldown",
-        "Barbell Row",
-        "Wide-Grip Row",
-        "Rope-Grip Row"
-      ]
-    },
+      2: {
+        title: "Back",
+        focus: "Pure Back",
+        exercises: [
+          "Deadlift",
+          "One-Hand Dumbbell Row",
+          "Single-Arm Pulldown",
+          "Barbell Row",
+          "Wide-Grip Row",
+          "Rope-Grip Row"
+        ]
+      },
 
-    3:{
-      title:"Abs",
-      focus:"Core",
-      exercises:[
-        "Mountain Climbers",
-        "Sit-Ups",
-        "Plank",
-        "Cross-Body Chop",
-        "Dumbbell Side Bends",
-        "Outside Cable Crunch"
-      ]
-    },
+      3: {
+        title: "Abs",
+        focus: "Core",
+        exercises: [
+          "Mountain Climbers",
+          "Sit-Ups",
+          "Plank",
+          "Cross-Body Chop",
+          "Dumbbell Side Bends",
+          "Outside Cable Crunch"
+        ]
+      },
 
-    4:{
-      title:"Shoulders",
-      focus:"Pure Shoulders",
-      exercises:[
-        "Arnold Press",
-        "Barbell Overhead Press",
-        "Barbell Behind-the-Back Press",
-        "Rear Delt Fly",
-        "Barbell Shrugs",
-        "Dumbbell Overhead Press"
-      ]
-    },
+      4: {
+        title: "Shoulders",
+        focus: "Pure Shoulders",
+        exercises: [
+          "Arnold Press",
+          "Barbell Overhead Press",
+          "Barbell Behind-the-Back Press",
+          "Rear Delt Fly",
+          "Barbell Shrugs",
+          "Dumbbell Overhead Press"
+        ]
+      },
 
-    5:{
-      title:"Arms",
-      focus:"Biceps + Triceps",
-      exercises:[
-        "Wide-Grip Barbell Curl",
-        "One-Arm Preacher Curl",
-        "Barbell Curl",
-        "Static Curl",
-        "Cable Rope Pushdown",
-        "EZ-Bar Skull Crusher"
-      ]
-    },
+      5: {
+        title: "Arms",
+        focus: "Biceps + Triceps",
+        exercises: [
+          "Wide-Grip Barbell Curl",
+          "One-Arm Preacher Curl",
+          "Barbell Curl",
+          "Static Curl",
+          "Cable Rope Pushdown",
+          "EZ-Bar Skull Crusher"
+        ]
+      },
 
-    6:{
-      title:"Forearm",
-      focus:"Forearm Training",
-      exercises:[
-        "Reverse Cable Curl",
-        "Wrist Rotation",
-        "Wrist Curl",
-        "Reverse Wrist Curl"
-      ]
+      6: {
+        title: "Forearm",
+        focus: "Forearm Training",
+        exercises: [
+          "Reverse Cable Curl",
+          "Wrist Rotation",
+          "Wrist Curl",
+          "Reverse Wrist Curl"
+        ]
+      }
+
     }
+  },
 
-  }
-},
 
-4:{
-  days:{
+  4: {
+    days: {
 
-    1:{
-      title:"Chest + Triceps + Forearm",
-      focus:"Upper Body",
-      exercises:[
-        "Incline Bench Press",
-        "Dumbbell Fly - Half",
-        "Pec Deck",
-        "Dips",
-        "Overhead Triceps Extension - Rope",
-        "Reverse Cable Curl"
-      ]
-    },
+      1: {
+        title: "Chest + Triceps + Forearm",
+        focus: "Upper Body",
+        exercises: [
+          "Incline Bench Press",
+          "Dumbbell Fly - Half",
+          "Pec Deck",
+          "Dips",
+          "Overhead Triceps Extension - Rope",
+          "Reverse Cable Curl"
+        ]
+      },
 
-    2:{
-      title:"Back + Biceps + Forearm",
-      focus:"Upper Body",
-      exercises:[
-        "Seated Row",
-        "Close-Grip Lat Pulldown",
-        "One-Hand Dumbbell Row",
-        "Incline Dumbbell Curl",
-        "Dumbbell Curl",
-        "Hammer Curl"
-      ]
-    },
+      2: {
+        title: "Back + Biceps + Forearm",
+        focus: "Upper Body",
+        exercises: [
+          "Seated Row",
+          "Close-Grip Lat Pulldown",
+          "One-Hand Dumbbell Row",
+          "Incline Dumbbell Curl",
+          "Dumbbell Curl",
+          "Hammer Curl"
+        ]
+      },
 
-    3:{
-      title:"Abs",
-      focus:"Core",
-      exercises:[
-        "Dumbbell Inside & Outside Crunch",
-        "Rope Crunch",
-        "Hanging Leg Raise",
-        "Russian Twist",
-        "Crunch",
-        "V-Ups"
-      ]
-    },
+      3: {
+        title: "Abs",
+        focus: "Core",
+        exercises: [
+          "Dumbbell Inside & Outside Crunch",
+          "Rope Crunch",
+          "Hanging Leg Raise",
+          "Russian Twist",
+          "Crunch",
+          "V-Ups"
+        ]
+      },
 
-    4:{
-      title:"Legs",
-      focus:"Lower Body",
-      exercises:[
-        "Walking Lunges",
-        "Leg Press",
-        "Front Leg Smith Squat",
-        "Leg Press - Wide",
-        "Dumbbell Leg Raises",
-        "Dumbbell Goblet Squat"
-      ]
-    },
+      4: {
+        title: "Legs",
+        focus: "Lower Body",
+        exercises: [
+          "Walking Lunges",
+          "Leg Press",
+          "Front Leg Smith Squat",
+          "Leg Press - Wide",
+          "Dumbbell Leg Raises",
+          "Dumbbell Goblet Squat"
+        ]
+      },
 
-    5:{
-      title:"Shoulders",
-      focus:"Shoulders",
-      exercises:[
-        "Arnold Press",
-        "Barbell Overhead Press",
-        "Barbell Behind-the-Back Press",
-        "Rear Delt Fly",
-        "Barbell Shrugs",
-        "Dumbbell Overhead Press"
-      ]
-    },
+      5: {
+        title: "Shoulders",
+        focus: "Shoulders",
+        exercises: [
+          "Arnold Press",
+          "Barbell Overhead Press",
+          "Barbell Behind-the-Back Press",
+          "Rear Delt Fly",
+          "Barbell Shrugs",
+          "Dumbbell Overhead Press"
+        ]
+      },
 
-    6:{
-      title:"Abs",
-      focus:"Core",
-      exercises:[
-        "Ground Outs",
-        "Mountain Climbers",
-        "Sit-Ups",
-        "Plank",
-        "Cross-Body Chop",
-        "Dumbbell Side Bends"
-      ]
+      6: {
+        title: "Abs",
+        focus: "Core",
+        exercises: [
+          "Ground Outs",
+          "Mountain Climbers",
+          "Sit-Ups",
+          "Plank",
+          "Cross-Body Chop",
+          "Dumbbell Side Bends"
+        ]
+      }
+
     }
-
   }
+
 };
 
 
-/* =========================================
+/* =====================================
    L-SIT / CORE SKILLS
-========================================= */
+===================================== */
 
 const LSIT = [
+
   "Bent-Leg L-Sit",
   "Single-Leg Tuck",
   "Full Tuck",
@@ -901,16 +916,17 @@ const LSIT = [
   "Full L-Sit",
   "Seated Pike Compression",
   "Single-Leg Seated Pike Compression"
+
 ];
 
 
-/* =========================================
+/* =====================================
    WORKOUT LIBRARY
-========================================= */
+===================================== */
 
 const WORKOUTS = {
 
-  "Chest":[
+  Chest: [
     "Bench Press",
     "Incline Bench Press",
     "Dumbbell Fly - Half",
@@ -921,10 +937,11 @@ const WORKOUTS = {
     "Pec Deck"
   ],
 
-  "Back":[
+  Back: [
     "Lat Pulldown",
     "Pull-ups",
     "Seated Row",
+    "Lat Pulldown",
     "Close-Grip Lat Pulldown",
     "Close-Grip Cable Row",
     "Reverse Cable Fly",
@@ -937,7 +954,7 @@ const WORKOUTS = {
     "Dumbbell Shrugs"
   ],
 
-  "Shoulders":[
+  Shoulders: [
     "Dumbbell Overhead Press",
     "Dumbbell Lateral Raise",
     "Front Raise",
@@ -951,7 +968,7 @@ const WORKOUTS = {
     "Barbell Shrugs"
   ],
 
-  "Legs":[
+  Legs: [
     "Seated Leg Curl",
     "Smith Squat",
     "Romanian Deadlift",
@@ -961,12 +978,12 @@ const WORKOUTS = {
     "Walking Lunges",
     "Leg Press",
     "Front Leg Smith Squat",
-    "Leg Press with Wide Legs",
+    "Leg Press with Legs Wide",
     "Dumbbell Leg Raises",
     "Dumbbell Goblet Squat"
   ],
 
-  "Forearms":[
+  Forearms: [
     "Wrist Curl",
     "Reverse Wrist Curl",
     "Behind-the-Back Wrist Curl",
@@ -975,7 +992,7 @@ const WORKOUTS = {
     "Wrist Rotation"
   ],
 
-  "Abs":[
+  Abs: [
     "Rope Crunch",
     "Hanging Leg Raise",
     "Russian Twist",
@@ -988,10 +1005,10 @@ const WORKOUTS = {
     "Cross-Body Chop",
     "Dumbbell Side Bends",
     "Outside Cable Crunch",
-    "Dumbbell Inside & Outside Crunch"
+    "Dumbbell Inside and Outside Crunch"
   ],
 
-  "Biceps":[
+  Biceps: [
     "EZ-Bar Curl",
     "Hammer Curl",
     "Incline Dumbbell Curl",
@@ -1004,7 +1021,7 @@ const WORKOUTS = {
     "Static Curl"
   ],
 
-  "Triceps":[
+  Triceps: [
     "Cable Rope Pushdown",
     "EZ-Bar Skull Crusher",
     "Dips",
@@ -1017,168 +1034,191 @@ const WORKOUTS = {
 };
 
 
-/* =========================================
-   STATE
-========================================= */
+/* =====================================
+   HELPERS & STATE
+===================================== */
+
+const $ = id => document.getElementById(id);
 
 let state = {
-  section:"week",
-  week:1,
-  day:1,
-  checked:{},
-  sessions:[]
+  section: "week",
+  week: 1,
+  day: 1,
+  checked: {},
+  sessions: []
 };
 
 let calendarDate = new Date();
 
-const $ = id => document.getElementById(id);
-
-
-/* =========================================
-   DATE
-========================================= */
-
-function todayISO(){
-
-  const d = new Date();
-
-  const year = d.getFullYear();
-  const month = String(d.getMonth()+1).padStart(2,'0');
-  const day = String(d.getDate()).padStart(2,'0');
-
-  return `${year}-${month}-${day}`;
-}
 
 function dateToISO(date){
 
   const year = date.getFullYear();
-  const month = String(date.getMonth()+1).padStart(2,'0');
-  const day = String(date.getDate()).padStart(2,'0');
+
+  const month = String(
+    date.getMonth() + 1
+  ).padStart(2,"0");
+
+  const day = String(
+    date.getDate()
+  ).padStart(2,"0");
 
   return `${year}-${month}-${day}`;
+
 }
 
 
-/* =========================================
-   LOCAL STORAGE
-========================================= */
+function todayISO(){
+
+  return dateToISO(new Date());
+
+}
+
+
+function sessionKey(week,day){
+
+  return `${todayISO()}|${week}|${day}`;
+
+}
+
+
+/* =====================================
+   SAVE / LOAD
+===================================== */
 
 function loadState(){
 
   try{
 
-    const data = localStorage.getItem("ironlog_data_v2");
+    const saved = JSON.parse(
+      localStorage.getItem("ironlog_v4")
+    );
 
-    if(data){
-
-      const saved = JSON.parse(data);
+    if(saved){
 
       state.week = saved.week || 1;
       state.day = saved.day || 1;
-      state.checked = saved.checked || {};
       state.sessions = saved.sessions || [];
+
     }
 
-  }catch(e){
-    console.log(e);
+  }catch(error){
+
+    console.error(error);
+
   }
+
 }
+
 
 function saveState(){
 
   localStorage.setItem(
-    "ironlog_data_v2",
+    "ironlog_v4",
     JSON.stringify({
-      week:state.week,
-      day:state.day,
-      checked:state.checked,
-      sessions:state.sessions
+      week: state.week,
+      day: state.day,
+      sessions: state.sessions
     })
   );
+
 }
 
 
-/* =========================================
-   MAIN NAVIGATION
-========================================= */
+/* =====================================
+   CHECK COMPLETION
+===================================== */
 
-function renderMainNav(){
+function isSessionDone(week,day){
+
+  return state.sessions.some(session =>
+    session.key === sessionKey(week,day)
+  );
+
+}
+
+
+/* =====================================
+   TOP NAVIGATION
+===================================== */
+
+function renderNav(){
 
   const nav = $("mainNav");
 
   nav.innerHTML = "";
 
   const items = [
-    {id:"week1",label:"WEEK 1"},
-    {id:"week2",label:"WEEK 2"},
-    {id:"week3",label:"WEEK 3"},
-    {id:"week4",label:"WEEK 4"},
-    {id:"lsit",label:"L-SIT"},
-    {id:"workouts",label:"WORKOUTS"}
+
+    {type:"week",label:"WEEK 1",week:1},
+    {type:"week",label:"WEEK 2",week:2},
+    {type:"week",label:"WEEK 3",week:3},
+    {type:"week",label:"WEEK 4",week:4},
+
+    {type:"lsit",label:"L-SIT"},
+
+    {type:"workouts",label:"WORKOUTS"}
+
   ];
+
 
   items.forEach(item => {
 
-    const btn = document.createElement("button");
+    const button = document.createElement("button");
 
-    let active = false;
+    button.textContent = item.label;
 
-    if(item.id.startsWith("week")){
-      active = state.section === "week" &&
-               state.week === Number(item.id.replace("week",""));
-    }else{
-      active = state.section === item.id;
-    }
 
-    btn.className = "phase-btn " + (active ? "active" : "");
-    btn.textContent = item.label;
+    const active =
 
-    btn.onclick = () => {
+      (item.type === "week" &&
+       state.section === "week" &&
+       state.week === item.week)
+
+      ||
+
+      state.section === item.type;
+
+
+    button.className =
+      active ? "active" : "";
+
+
+    button.onclick = () => {
 
       state.checked = {};
 
-      if(item.id.startsWith("week")){
+
+      if(item.type === "week"){
 
         state.section = "week";
-        state.week = Number(item.id.replace("week",""));
+
+        state.week = item.week;
+
         state.day = 1;
 
       }else{
 
-        state.section = item.id;
+        state.section = item.type;
 
       }
 
-      saveState();
+
       renderAll();
 
     };
 
-    nav.appendChild(btn);
+
+    nav.appendChild(button);
 
   });
 
 }
 
 
-/* =========================================
-   CHECK SESSION DONE
-========================================= */
-
-function isSessionDone(week,day){
-
-  return state.sessions.some(s =>
-    s.date === todayISO() &&
-    s.week === week &&
-    s.day === day
-  );
-
-}
-
-
-/* =========================================
-   DAY BUTTONS
-========================================= */
+/* =====================================
+   DAY NAVIGATION
+===================================== */
 
 function renderDayRow(){
 
@@ -1186,227 +1226,374 @@ function renderDayRow(){
 
   row.innerHTML = "";
 
+
   if(state.section !== "week"){
+
     row.classList.add("hidden");
+
     return;
+
   }
+
 
   row.classList.remove("hidden");
 
-  [1,2,3,4,5,6].forEach(d => {
 
-    const done = isSessionDone(state.week,d);
+  for(let day = 1; day <= 6; day++){
 
-    const pill = document.createElement("div");
+    const pill = document.createElement("button");
+
+    const done =
+      isSessionDone(state.week,day);
+
 
     pill.className =
-      "day-pill " +
-      (state.day === d ? "active " : "") +
-      (done ? "done" : "");
+      "day-pill" +
+      (state.day === day ? " active" : "") +
+      (done ? " done" : "");
 
-    pill.innerHTML =
-      `DAY ${d} <span class="check">✓</span>`;
+
+    pill.textContent =
+      `DAY ${day}${done ? " ✓" : ""}`;
+
 
     pill.onclick = () => {
 
-      state.day = d;
+      state.day = day;
+
       state.checked = {};
 
       saveState();
+
       renderAll();
 
     };
 
+
     row.appendChild(pill);
-
-  });
-
-}
-
-
-/* =========================================
-   WEEK WORKOUT VIEW
-========================================= */
-
-function renderWeek(){
-
-  const data = PLAN[state.week].days[state.day];
-
-  $("dayTitle").textContent =
-    `WEEK ${state.week} · DAY ${state.day}`;
-
-  $("dayFocus").textContent =
-    data.title;
-
-  const area = $("contentArea");
-
-  area.innerHTML = "";
-
-  const done = isSessionDone(state.week,state.day);
-
-  data.exercises.forEach((exercise,i) => {
-
-    const checked = state.checked[i] || done;
-
-    const card = document.createElement("div");
-
-    card.className =
-      "ex-card " + (checked ? "checked" : "");
-
-    card.innerHTML = `
-      <div class="checkbox ${checked ? "on" : ""}">
-        <svg viewBox="0 0 24 24" fill="none">
-          <path d="M4 12l5 5L20 6"
-            stroke="#12140A"
-            stroke-width="3"/>
-        </svg>
-      </div>
-
-      <div class="ex-info">
-        <div class="ex-name">${exercise}</div>
-        <div class="ex-meta">${data.focus}</div>
-      </div>
-    `;
-
-    const box = card.querySelector(".checkbox");
-
-    if(!done){
-
-      box.onclick = () => {
-
-        state.checked[i] = !state.checked[i];
-
-        saveState();
-        renderWeek();
-
-      };
-
-    }
-
-    area.appendChild(card);
-
-  });
-
-  $("finishBtn").classList.remove("hidden");
-  $("resetBtn").classList.remove("hidden");
-  $("statsBoard").classList.remove("hidden");
-  $("calendarBox").classList.remove("hidden");
-
-  if(done){
-
-    $("finishBtn").textContent = "✓ Workout Logged";
-    $("finishBtn").disabled = true;
-
-  }else{
-
-    $("finishBtn").textContent = "Finish Workout";
-    $("finishBtn").disabled = false;
 
   }
 
 }
 
 
-/* =========================================
-   L-SIT VIEW
-========================================= */
+/* =====================================
+   WEEK WORKOUT
+===================================== */
 
-function renderLSit(){
+function renderWeek(){
 
-  $("dayTitle").textContent = "L-SIT / CORE SKILLS";
-  $("dayFocus").textContent = "Reference";
+  const data =
+    PLAN[state.week].days[state.day];
 
-  const area = $("contentArea");
+
+  $("dayTitle").textContent =
+    `WEEK ${state.week} · DAY ${state.day}`;
+
+
+  $("dayFocus").textContent =
+    data.title;
+
+
+  const area =
+    $("contentArea");
+
 
   area.innerHTML = "";
 
-  LSIT.forEach((exercise,i) => {
 
-    const card = document.createElement("div");
+  const done =
+    isSessionDone(
+      state.week,
+      state.day
+    );
 
-    card.className = "reference-card";
 
-    card.innerHTML = `
-      <span class="reference-number">${i+1}.</span>
-      ${exercise}
-    `;
+  data.exercises.forEach(
+    (exercise,index) => {
+
+      const checked =
+        done || !!state.checked[index];
+
+
+      const card =
+        document.createElement("div");
+
+
+      card.className =
+        "exercise" +
+        (checked ? " checked" : "");
+
+
+      card.innerHTML = `
+
+        <div class="checkbox ${checked ? "on" : ""}">
+          ${checked ? "✓" : ""}
+        </div>
+
+        <div>
+
+          <div class="exercise-name"></div>
+
+          <div class="meta"></div>
+
+        </div>
+
+      `;
+
+
+      card.querySelector(
+        ".exercise-name"
+      ).textContent = exercise;
+
+
+      card.querySelector(
+        ".meta"
+      ).textContent = data.focus;
+
+
+      if(!done){
+
+        card.querySelector(
+          ".checkbox"
+        ).onclick = () => {
+
+          state.checked[index] =
+            !state.checked[index];
+
+          renderWeek();
+
+        };
+
+      }
+
+
+      area.appendChild(card);
+
+    }
+  );
+
+
+  $("finishBtn").classList.remove("hidden");
+
+  $("resetBtn").classList.remove("hidden");
+
+  $("statsBoard").classList.remove("hidden");
+
+  $("calendarBox").classList.remove("hidden");
+
+
+  $("finishBtn").disabled = done;
+
+
+  $("finishBtn").textContent =
+    done
+      ? "✓ WORKOUT LOGGED"
+      : "FINISH WORKOUT";
+
+}
+
+
+/* =====================================
+   REFERENCE LIST
+===================================== */
+
+function renderReference(title,focus,items){
+
+  $("dayTitle").textContent = title;
+
+  $("dayFocus").textContent = focus;
+
+
+  const area =
+    $("contentArea");
+
+
+  area.innerHTML = "";
+
+
+  items.forEach((item,index) => {
+
+    const card =
+      document.createElement("div");
+
+
+    card.className =
+      "reference-card";
+
+
+    const number =
+      document.createElement("span");
+
+
+    number.className =
+      "ref-number";
+
+
+    number.textContent =
+      `${index + 1}.`;
+
+
+    const text =
+      document.createElement("span");
+
+
+    text.textContent = item;
+
+
+    card.append(number,text);
 
     area.appendChild(card);
 
   });
 
-  $("finishBtn").classList.add("hidden");
-  $("resetBtn").classList.add("hidden");
-  $("statsBoard").classList.add("hidden");
-  $("calendarBox").classList.add("hidden");
+
+  [
+    "finishBtn",
+    "resetBtn",
+    "statsBoard",
+    "calendarBox"
+  ].forEach(id => {
+
+    $(id).classList.add("hidden");
+
+  });
 
 }
 
 
-/* =========================================
-   WORKOUT LIBRARY VIEW
-========================================= */
+/* =====================================
+   L-SIT
+===================================== */
+
+function renderLSit(){
+
+  renderReference(
+    "L-SIT / CORE SKILLS",
+    "REFERENCE ONLY",
+    LSIT
+  );
+
+}
+
+
+/* =====================================
+   WORKOUT LIBRARY
+===================================== */
 
 function renderWorkouts(){
 
-  $("dayTitle").textContent = "WORKOUTS";
-  $("dayFocus").textContent = "Exercise Library";
+  $("dayTitle").textContent =
+    "WORKOUTS";
 
-  const area = $("contentArea");
+  $("dayFocus").textContent =
+    "EXERCISE LIBRARY";
+
+
+  const area =
+    $("contentArea");
+
 
   area.innerHTML = "";
 
-  Object.entries(WORKOUTS).forEach(([category,exercises]) => {
 
-    const title = document.createElement("h3");
+  for(
+    const [category,list]
+    of Object.entries(WORKOUTS)
+  ){
 
-    title.className = "category-title";
-    title.textContent = category;
+    const heading =
+      document.createElement("div");
 
-    area.appendChild(title);
 
-    exercises.forEach((exercise,i) => {
+    heading.className =
+      "category";
 
-      const card = document.createElement("div");
 
-      card.className = "reference-card";
+    heading.textContent =
+      category;
 
-      card.innerHTML = `
-        <span class="reference-number">${i+1}.</span>
-        ${exercise}
-      `;
+
+    area.appendChild(heading);
+
+
+    list.forEach((exercise,index) => {
+
+      const card =
+        document.createElement("div");
+
+
+      card.className =
+        "reference-card";
+
+
+      const number =
+        document.createElement("span");
+
+
+      number.className =
+        "ref-number";
+
+
+      number.textContent =
+        `${index + 1}.`;
+
+
+      const text =
+        document.createElement("span");
+
+
+      text.textContent =
+        exercise;
+
+
+      card.append(number,text);
 
       area.appendChild(card);
 
     });
 
-  });
+  }
 
-  $("finishBtn").classList.add("hidden");
-  $("resetBtn").classList.add("hidden");
-  $("statsBoard").classList.add("hidden");
-  $("calendarBox").classList.add("hidden");
+
+  [
+    "finishBtn",
+    "resetBtn",
+    "statsBoard",
+    "calendarBox"
+  ].forEach(id => {
+
+    $(id).classList.add("hidden");
+
+  });
 
 }
 
 
-/* =========================================
+/* =====================================
    FINISH WORKOUT
-========================================= */
+===================================== */
 
 function finishWorkout(){
 
-  if(state.section !== "week") return;
+  if(state.section !== "week"){
 
-  const data =
-    PLAN[state.week].days[state.day];
+    return;
 
-  const total = data.exercises.length;
+  }
+
+
+  const total =
+    PLAN[state.week]
+      .days[state.day]
+      .exercises.length;
+
 
   const completed =
     Object.values(state.checked)
       .filter(Boolean)
       .length;
+
 
   if(completed < total){
 
@@ -1415,134 +1602,143 @@ function finishWorkout(){
     );
 
     return;
+
   }
 
-  state.sessions.push({
 
-    date:todayISO(),
-    week:state.week,
-    day:state.day,
-    ts:Date.now()
+  if(
+    !isSessionDone(
+      state.week,
+      state.day
+    )
+  ){
 
-  });
+    state.sessions.push({
+
+      key: sessionKey(
+        state.week,
+        state.day
+      ),
+
+      date: todayISO(),
+
+      week: state.week,
+
+      day: state.day,
+
+      ts: Date.now()
+
+    });
+
+  }
+
 
   state.checked = {};
 
   saveState();
 
-  showToast("Workout logged 💪");
+
+  showToast(
+    "Workout logged 💪"
+  );
+
 
   renderAll();
 
 }
 
 
-/* =========================================
-   WEEK RESET
-========================================= */
-
-function getWeekRange(){
-
-  const now = new Date();
-
-  const day = now.getDay();
-
-  const mondayOffset =
-    day === 0 ? -6 : 1-day;
-
-  const monday = new Date(now);
-
-  monday.setDate(
-    now.getDate()+mondayOffset
-  );
-
-  monday.setHours(0,0,0,0);
-
-  const sunday = new Date(monday);
-
-  sunday.setDate(
-    monday.getDate()+6
-  );
-
-  sunday.setHours(23,59,59,999);
-
-  return {monday,sunday};
-
-}
+/* =====================================
+   RESET WEEK
+===================================== */
 
 function resetWeek(){
 
-  if(state.section !== "week") return;
+  if(state.section !== "week"){
 
-  const confirmReset = confirm(
-    "Reset this week's workouts?\n\nYour previous history outside this calendar week will stay saved."
-  );
+    return;
 
-  if(!confirmReset) return;
+  }
 
-  const range = getWeekRange();
+
+  const confirmReset =
+    confirm(
+      `Reset saved workouts for WEEK ${state.week}?`
+    );
+
+
+  if(!confirmReset){
+
+    return;
+
+  }
+
 
   state.sessions =
-    state.sessions.filter(s => {
+    state.sessions.filter(
+      session =>
+        session.week !== state.week
+    );
 
-      const date =
-        new Date(s.date+"T12:00:00");
-
-      return !(
-        date >= range.monday &&
-        date <= range.sunday
-      );
-
-    });
 
   state.checked = {};
 
+
   saveState();
 
-  showToast("Week reset successfully");
+
+  showToast(
+    `WEEK ${state.week} reset`
+  );
+
 
   renderAll();
 
 }
 
 
-/* =========================================
+/* =====================================
    STATS
-========================================= */
+===================================== */
 
 function renderStats(){
 
-  const range = getWeekRange();
-
-  const weekSessions =
-    state.sessions.filter(s => {
-
-      const d =
-        new Date(s.date+"T12:00:00");
-
-      return d >= range.monday &&
-             d <= range.sunday &&
-             s.week === state.week;
-
-    });
-
-  const completedDays =
+  const uniqueDays =
     new Set(
-      weekSessions.map(s =>
-        `${s.date}-${s.day}`
-      )
-    ).size;
+
+      state.sessions
+        .filter(
+          session =>
+            session.week === state.week
+        )
+        .map(
+          session =>
+            session.day
+        )
+
+    );
+
+
+  const completed =
+    Math.min(
+      uniqueDays.size,
+      6
+    );
+
 
   $("statWeek").textContent =
-    `${Math.min(completedDays,6)}/6`;
+    `${completed}/6`;
+
 
   $("statProgress").textContent =
-    Math.round(
-      (Math.min(completedDays,6)/6)*100
-    ) + "%";
+    `${Math.round(
+      completed / 6 * 100
+    )}%`;
+
 
   $("statTotal").textContent =
     state.sessions.length;
+
 
   $("tallyCount").textContent =
     state.sessions.length;
@@ -1550,85 +1746,112 @@ function renderStats(){
 }
 
 
-/* =========================================
+/* =====================================
    CALENDAR
-========================================= */
+===================================== */
 
 function renderCalendar(){
 
   const year =
     calendarDate.getFullYear();
 
+
   const month =
     calendarDate.getMonth();
 
-  const monthName =
-    calendarDate.toLocaleDateString(
-      "en-US",
-      {
-        month:"long",
-        year:"numeric"
-      }
-    );
 
   $("monthLabel").textContent =
-    monthName;
+    calendarDate
+      .toLocaleDateString(
+        "en-US",
+        {
+          month:"long",
+          year:"numeric"
+        }
+      )
+      .toUpperCase();
+
 
   const grid =
     $("calendarGrid");
 
+
   grid.innerHTML = "";
 
+
   const firstDay =
-    new Date(year,month,1).getDay();
+    new Date(
+      year,
+      month,
+      1
+    ).getDay();
+
 
   const daysInMonth =
     new Date(
       year,
-      month+1,
+      month + 1,
       0
     ).getDate();
 
-  for(let i=0;i<firstDay;i++){
+
+  for(let i = 0; i < firstDay; i++){
 
     const empty =
       document.createElement("div");
 
+
     empty.className =
       "calendar-day empty";
+
 
     grid.appendChild(empty);
 
   }
 
+
   const workoutDates =
     new Set(
-      state.sessions.map(s => s.date)
+      state.sessions.map(
+        session =>
+          session.date
+      )
     );
 
-  for(let day=1;day<=daysInMonth;day++){
+
+  for(let day = 1; day <= daysInMonth; day++){
 
     const cell =
       document.createElement("div");
 
+
     const date =
-      new Date(year,month,day);
+      new Date(
+        year,
+        month,
+        day
+      );
+
 
     const iso =
       dateToISO(date);
 
+
     cell.className =
-      "calendar-day";
+      "calendar-day" +
+      (iso === todayISO()
+        ? " today"
+        : ""
+      ) +
+      (workoutDates.has(iso)
+        ? " workout"
+        : ""
+      );
 
-    if(iso === todayISO()){
-      cell.classList.add("today");
-    }
 
-    if(workoutDates.has(iso)){
-      cell.classList.add("workout");
-    }
+    cell.textContent =
+      day;
 
-    cell.textContent = day;
 
     grid.appendChild(cell);
 
@@ -1637,58 +1860,41 @@ function renderCalendar(){
 }
 
 
-/* =========================================
-   CALENDAR BUTTONS
-========================================= */
-
-$("prevMonth").onclick = () => {
-
-  calendarDate.setMonth(
-    calendarDate.getMonth()-1
-  );
-
-  renderCalendar();
-
-};
-
-$("nextMonth").onclick = () => {
-
-  calendarDate.setMonth(
-    calendarDate.getMonth()+1
-  );
-
-  renderCalendar();
-
-};
-
-
-/* =========================================
+/* =====================================
    TOAST
-========================================= */
+===================================== */
 
-function showToast(msg){
+function showToast(message){
 
-  const toast = $("toast");
+  const toast =
+    $("toast");
 
-  toast.textContent = msg;
+
+  toast.textContent =
+    message;
+
 
   toast.classList.add("show");
 
-  clearTimeout(showToast.timer);
+
+  clearTimeout(
+    showToast.timer
+  );
+
 
   showToast.timer =
     setTimeout(() => {
 
       toast.classList.remove("show");
 
-    },2000);
+    },1800);
 
 }
 
 
-/* =========================================
-   RENDER ALL
-========================================= */
+/* =====================================
+   RENDER EVERYTHING
+===================================== */
 
 function renderAll(){
 
@@ -1704,20 +1910,29 @@ function renderAll(){
       )
       .toUpperCase();
 
-  renderMainNav();
+
+  renderNav();
+
   renderDayRow();
+
 
   if(state.section === "week"){
 
     renderWeek();
+
     renderStats();
+
     renderCalendar();
 
-  }else if(state.section === "lsit"){
+  }
+
+  else if(state.section === "lsit"){
 
     renderLSit();
 
-  }else if(state.section === "workouts"){
+  }
+
+  else if(state.section === "workouts"){
 
     renderWorkouts();
 
@@ -1726,15 +1941,16 @@ function renderAll(){
 }
 
 
-/* =========================================
+/* =====================================
    EVENTS
-========================================= */
+===================================== */
 
 $("finishBtn")
   .addEventListener(
     "click",
     finishWorkout
   );
+
 
 $("resetBtn")
   .addEventListener(
@@ -1743,11 +1959,34 @@ $("resetBtn")
   );
 
 
-/* =========================================
+$("prevMonth").onclick = () => {
+
+  calendarDate.setMonth(
+    calendarDate.getMonth() - 1
+  );
+
+  renderCalendar();
+
+};
+
+
+$("nextMonth").onclick = () => {
+
+  calendarDate.setMonth(
+    calendarDate.getMonth() + 1
+  );
+
+  renderCalendar();
+
+};
+
+
+/* =====================================
    START
-========================================= */
+===================================== */
 
 loadState();
+
 renderAll();
 
 </script>
